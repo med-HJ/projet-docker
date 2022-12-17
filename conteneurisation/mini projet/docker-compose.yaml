@@ -1,0 +1,39 @@
+version: "3.9"  
+services:
+  mongodb-service:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongovolume:/data/db 
+    container_name: mongodb-service   
+  backend:
+    build:
+      context: ./exam-backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    container_name: backend 
+  frontend:
+    build:
+      context: ./exam-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    container_name: frontend 
+      
+volumes:
+  mongovolume: 
+
+#   {
+#   "builder": {
+#     "gc": {
+#       "defaultKeepStorage": "20GB",
+#       "enabled": true
+#     }
+#   },
+#   "experimental": false,
+#   "features": {
+#     "buildkit": true
+#   }
+# }
